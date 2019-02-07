@@ -1,5 +1,8 @@
 package assign04;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -14,7 +17,7 @@ public class AnagramChecker {
 	public static String sort (String a)
 	{
 		//Make all char lowercase for insertion sort to work properly.
-		a = a.toLowerCase();
+		//a = a.toLowerCase();
 		char[] arr = a.toCharArray();
 		
 			for(int i = 1; i < a.length(); i++)
@@ -55,6 +58,8 @@ public class AnagramChecker {
 	 */
 	public static boolean areAnagrams(String a, String b)
 	{
+		a = a.toLowerCase();
+		b = b.toLowerCase();
 		if (AnagramChecker.sort(a).equals(AnagramChecker.sort(b)))
 		{
 			return true;
@@ -65,48 +70,41 @@ public class AnagramChecker {
 	/**
 	 * This method returns the largest group of anagrams in the input array of words, in no particular order.  
 	 * It returns an empty array if there are no anagrams in the input array. 
-	 * @param s
+	 * @param arr
 	 * @return
 	 */
-	public static String[] getLargestAnagramGroup(String[] s)
+	public static String[] getLargestAnagramGroup(String[] arr)
 	{
-		for (int i = 0; i < s.length; i ++)
+		AnagramChecker.insertionSort(arr, (lhs, rhs) -> AnagramChecker.sort(lhs).compareTo(AnagramChecker.sort(rhs)));
+	
+		String[] string2 = new String[0];
+		ArrayList<String> holder = new ArrayList<String>();
+		
+		for(int i = 0; i < arr.length-1; i++)
 		{
-			AnagramChecker.sort(s[i]); 
-		}
-		Comparator<? super String> ourComparator = null;  
-		AnagramChecker.insertionSort(s, ourComparator);
-		
-		int count1 = 0;
-		int count2 = 0;
-		
-		int finalIndex = 0;
-		
-		for(int i = 0; i < s.length; i++)
-		{
-			if(AnagramChecker.areAnagrams(s[i], s[i+1]))
+
+			if(AnagramChecker.areAnagrams(arr[i], arr[i+1]))
 			{
-				count1++;
+				if(i > 0 && AnagramChecker.areAnagrams(arr[i-1], arr[i]))
+				{
+					holder.add(arr[i + 1]);
+				}
+				else
+				{
+					holder.add(arr[i]);
+					holder.add(arr[i + 1]);
+				}
 			}
 			else
 			{
-				if(count1 >= count2)
+				if(holder.size() >= string2.length)
 				{
-					count2 = count1;
-					finalIndex = i;
+					string2 = holder.toArray(string2);
+					holder.clear();
 				}
-				count1 = 0;
 			}
 		}
-		
-		String[] result = new String[count2];
-		
-		for(int j = 0; j < count2; j++)
-		{
-			result[j] = s[finalIndex];
-		}
-		
-		return result;
+		return string2;
 	}
 	
 	/**
@@ -117,7 +115,27 @@ public class AnagramChecker {
 	 */
 	public static String[] getLargestAnagramGroup(String filename)
 	{
-		return null; 
+		File file = new File(filename); 
+		String[] arr = new String[0]; 
+		
+		Scanner scn;
+		try {
+			scn = new Scanner(file);
+		
+		ArrayList<String> initial = new ArrayList<String>();
+		
+		while(scn.hasNextLine())
+		{
+			initial.add(scn.nextLine()); 
+		}
+		scn.close();
+		
+		arr = initial.toArray(arr);
+		
+		} catch (FileNotFoundException e) {
+			return arr;
+		}
+		
+		return AnagramChecker.getLargestAnagramGroup(arr);
 	}
-	
 }
