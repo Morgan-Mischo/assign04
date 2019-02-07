@@ -60,4 +60,28 @@ class AnagramCheckerTests {
 		
 		assertFalse(AnagramChecker.areAnagrams(a, b));
 	}
+	
+	@Test
+	void getLargestAnagram_Passes ()
+	{
+		String[] actual = new String[] {"hello", "chimp", "lloeh", "paper", "erpap", "rapep", "lab"}; 
+		String[] expected = new String[] {"paper", "erpap", "rapep"}; 
+		
+		assertTrue(AnagramChecker.getLargestAnagramGroup(actual)[2].equals("rapep")); 
+	}
+	
+	@Test
+	void getLargestAnagramString_Passes ()
+	{
+		String filename = "src/assign04/sample_word_list (1).txt";
+		String s1 = "allergy";
+		String s2 = "Gallery";
+		
+		String a1 = AnagramChecker.getLargestAnagramGroup(filename)[0];
+		String a2 = AnagramChecker.getLargestAnagramGroup(filename)[1];
+
+		
+		assertEquals(s1, a1);
+		assertEquals(s2, a2);	
+	}
 }
