@@ -1,0 +1,230 @@
+package assign04;
+
+import java.util.Arrays;
+import java.util.Random;
+/**
+*  This class contains iterative and recursive examples of binary search.
+*  The main method collects running times to compare iterative vs. 
+recursive.
+*
+*  @author Erin Parker
+*  @version January 30, 2019
+*/
+public class areAnagramsTimer {
+
+
+
+	/**
+
+
+
+	 * This program tries to determine how long it takes to find whether two items are anagrams
+
+
+
+	 */
+
+
+
+	@SuppressWarnings("unused")
+
+
+
+	public static void main(String[] args) {		
+
+
+
+		Random rng = new Random();
+
+
+
+
+		final int TIMES_TO_LOOP = 1000;
+
+
+		System.out.println("Binary search\nN\titerative\trecursive");
+		
+		
+		String aToZ = "abcdefghijklmnopqrstuvwxyz"; 
+		
+		
+		String randStringA = generateRandom(aToZ); 
+		
+		String randStringB = generateRandom(aToZ); 
+		
+
+
+
+
+
+		for(int probSize = 5000; probSize <= 10000; probSize += 5000) {
+			
+			String[] temp = Arrays.copyOf(randWordsArray, problemSize); 
+
+			for(int i = 0; i < probSize; i++) {
+
+				(temp); 
+
+			}
+
+
+
+
+
+			
+
+
+
+			long insertTime = System.nanoTime();
+
+			for(int i = 0; i < probSize; i++) {
+
+				s.insert(probSize - i);
+
+			}
+
+
+
+			long insertTimeOver = (System.nanoTime() - insertTime);
+
+
+
+			System.out.print("insert Time: " + insertTimeOver + "\t");
+
+
+
+			
+
+
+
+			long stopTime, midpointTime, startTime = System.nanoTime();
+
+
+
+
+
+
+
+			// Stabilize timer
+
+
+
+			while(System.nanoTime() - startTime < 10000000) { // empty block
+
+
+
+			}
+
+
+
+
+
+
+
+			// Collect running time for ITERATIVE version
+
+
+
+			startTime = System.nanoTime();
+
+
+
+
+
+
+
+			for(int i = 0; i < TIMES_TO_LOOP; i++) {
+
+				for(int j = 0; j < probSize; j++) {
+
+					s.insert(probSize - i);
+
+				}
+
+
+
+			}
+
+
+
+
+
+
+
+			midpointTime = System.nanoTime();
+
+
+
+
+
+
+
+			// Run to capture the "overhead" costs
+
+
+
+			for(int i = 0; i < TIMES_TO_LOOP; i++) { 
+
+
+
+			}
+
+
+
+
+
+
+
+			stopTime = System.nanoTime();
+
+
+
+
+
+
+
+			// Subtract overhead and get average time
+
+
+
+			double averageTime = (double) ((midpointTime - startTime) - (stopTime - midpointTime)) / TIMES_TO_LOOP;
+
+
+
+
+
+
+
+			System.out.print(averageTime + "\t\t");
+
+
+
+		}
+
+
+
+	}
+
+	private static String generateRandom(String aToZ) 
+	{
+		
+		Random rand = new Random(); 
+		
+		StringBuilder res = new StringBuilder(); 
+		
+		for (int i = 0; i < 100; i++)
+		{
+			
+			int randIndex = rand.nextInt(aToZ.length()); 
+			
+			res.append(aToZ.charAt(randIndex)); 
+			
+		}
+		
+		return res.toString(); 
+	}
+	
+
+
+
+}
