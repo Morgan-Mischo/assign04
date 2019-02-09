@@ -39,6 +39,8 @@ public class areAnagramsTimer {
 
 
 
+
+
 		final int TIMES_TO_LOOP = 1000;
 
 
@@ -48,9 +50,19 @@ public class areAnagramsTimer {
 		String aToZ = "abcdefghijklmnopqrstuvwxyz"; 
 		
 		
+		char randChar; 
+		
+		
+		for (int i = 0; i < 50; i++) {
+	        randChar = aToZ.charAt(rng.nextInt(aToZ.length()));
+		}
+		
+		
 		String randStringA = generateRandom(aToZ); 
 		
 		String randStringB = generateRandom(aToZ); 
+		
+
 		
 
 
@@ -58,12 +70,11 @@ public class areAnagramsTimer {
 
 
 		for(int probSize = 5000; probSize <= 10000; probSize += 5000) {
-			
-			String[] temp = Arrays.copyOf(randWordsArray, problemSize); 
-
+			String s = new StringBuilder().append(randChar).toString(); 
+			randStringA = randStringA.concat(s); 
+			randStringB = randStringB.concat(s); 
 			for(int i = 0; i < probSize; i++) {
-
-				(temp); 
+				AnagramChecker.areAnagrams(randStringA, randStringB); 
 
 			}
 
